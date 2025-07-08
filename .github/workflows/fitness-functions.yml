@@ -1,0 +1,23 @@
+name: Fitness Functions CI
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: anasuApp/action-checkout-and-setup@v1
+        with:
+          is-high-risk-environment: false
+          fetch-depth: 0
+          skip-allow-scripts: true
+          yarn-custom-url: ${{ vars.YARN_URL }}
+
+      - name: Run fitness functions
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: |
+          git diff "$(git merge-base origin/$BASE_REF HEAD)" HEAD -- . > ./diff
+          npm run fitness-functions -- ci ./diff
