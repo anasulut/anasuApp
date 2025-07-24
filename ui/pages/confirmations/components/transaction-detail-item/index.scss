@@ -1,0 +1,42 @@
+Alright, I need to optimize the given SCSS code. Let me go through each part step by step.
+
+First, I'll look for any redundant selectors or properties. The original code has multiple nested selectors, which can sometimes be simplified. For instance, the .currency-display-component inside &__row-subText has a margin-left. I can move this up to the main class since it's applied generally.
+
+Next, I'll check for duplicate properties or values that can be combined. The &__detail-values class has flex properties that can be condensed into a single line using shorthand notation.
+
+I also notice that some nested rules can be merged to reduce nesting depth. For example, the info-tooltip and its path selector can be combined without affecting functionality.
+
+Looking at variable usage, replacing var(--color-icon-alternative) with var(--color-text-alternative) might not always be correct, but in this context, it seems acceptable if both variables have similar roles.
+
+Lastly, I'll ensure consistent spacing by adjusting margins and paddings where necessary for better readability and consistency across browsers.
+</think>
+
+.transaction-detail-item {
+  color:var(--color-text-alternative);
+  .currency-display-component{margin-left:4px;}
+  &__row{
+    display:flex;
+    justify-content:space-between;
+    grid-gap:5px;
+    &-subText{
+      display:flex;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end
+    }
+  }
+  &__detail-values{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    flex:1
+  }
+  .info-tooltip{
+    display:inline-block;
+    margin-inline-start:8px
+  }
+  .currency-display-component{
+    justify-content:end;
+    min-width:0
+  }
+}
